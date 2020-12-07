@@ -1,3 +1,4 @@
+
 const db = require("../../data/dbConfig");
 
 module.exports = {
@@ -14,5 +15,16 @@ module.exports = {
             .then(([id]) => {
                 return db('accounts').where('id', id).first();
             })
+    }, 
+    update(id, change) { 
+        return db('accounts').where('id', id).update(change)
+            .then(num => {
+                if (num > 0) { 
+                    return db('accounts').where('id', id).first();
+                }
+            })
+    },
+    delete(id) {
+        return db('accounts').where('id', id).del()
     }
 };

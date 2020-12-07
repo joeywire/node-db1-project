@@ -32,5 +32,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const change = req.body; 
+    try { 
+        const updatedAcct = await Account.update(id, change); 
+        res.status(200).json(updatedAcct); 
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}); 
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const deletion = await Account.delete(id); 
+        res.status(200).json(deletion);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
 
 module.exports = router; 
